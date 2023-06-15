@@ -7,18 +7,27 @@ public class Main {
 	static boolean[] visited;
 	static int[] result;
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws Exception{
+//		// Scanner
+//		Scanner sc = new Scanner(System.in);
+//		N = sc.nextInt();
+//		M = sc.nextInt();
 		
-		N = sc.nextInt();
-		M = sc.nextInt();
+		
+		// Buffer
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
 		
 		result = new int[M];
 		visited = new boolean[N];
 		
 		permutation(0);
 		
-		sc.close();
+//		sc.close();
 	}
 	
 	public static void permutation(int cnt) {
