@@ -22,13 +22,13 @@ public class Main {
         }
 
         // M번의 구간합 구하기
+        int start, end, result;
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
+            start = Integer.parseInt(st.nextToken());
+            end = Integer.parseInt(st.nextToken());
 
-        
-            int result = number[end] - number[start-1];
+            result = number[end] - number[start-1];
             sb.append(result).append("\n");
         }
         System.out.println(sb);
