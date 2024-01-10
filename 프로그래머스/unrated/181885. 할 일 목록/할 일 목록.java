@@ -1,12 +1,14 @@
+import java.util.*;
+import java.util.stream.*;
 class Solution {
     public String[] solution(String[] todo_list, boolean[] finished) {
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < finished.length; i++){
-            if(!finished[i]){
-                sb.append(todo_list[i]).append(" ");
-            }
-        }
-        
-        return sb.toString().split(" ");
+        List<String> unfinishedTasks = Arrays.stream(todo_list)
+                .filter(task -> {
+                    int index = Arrays.asList(todo_list).indexOf(task);
+                    return index < finished.length && !finished[index];
+                })
+                .collect(Collectors.toList());
+
+        return unfinishedTasks.toArray(new String[0]);
     }
 }
