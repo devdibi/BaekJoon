@@ -1,26 +1,18 @@
+import java.util.*;
 class Solution {
     
     public int solution(String before, String after) {
         return compare(before, after);
     }
     public int compare(String before, String after){
-        int len = before.length();
-        boolean[] visited = new boolean[len];
+        char[] b = before.toCharArray();
+        char[] a = after.toCharArray();
         
-        for(int i = 0; i < len; i++){
-            for(int j = 0; j < len; j++){
-                if(visited[j]) continue;        
-                if(before.charAt(i) == after.charAt(j)){
-                    visited[j] = true;
-                    break;
-                }
-            }
-        }
+        Arrays.sort(b);
+        Arrays.sort(a);
         
-        for(boolean v : visited){
-            if(!v){
-                return 0;
-            }
+        for(int i = 0; i < a.length; i++){
+            if(a[i] != b[i]) return 0;
         }
         return 1;
     }
