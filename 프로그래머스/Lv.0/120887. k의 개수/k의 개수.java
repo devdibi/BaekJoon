@@ -1,18 +1,16 @@
+
 class Solution {
     public int solution(int i, int j, int k) {
-        int cnt = 0;
-        
-        StringBuilder sb = new StringBuilder();
-        
-        while(i <= j){
-            sb.append(i++);
+        int answer = 0;
+
+        for (int num = i; num <= j; num++){
+            int tmp = num;
+            while (tmp != 0){
+                if (tmp % 10 == k)
+                    answer++;
+                tmp /= 10;
+            }
         }
-        char t = (char)(k + 48);
-        
-        for(char c : sb.toString().toCharArray()){
-            if(t == c) cnt++;
-        }
-        
-        return cnt;
+        return answer;
     }
 }
