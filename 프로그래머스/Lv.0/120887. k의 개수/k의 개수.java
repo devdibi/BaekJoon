@@ -2,12 +2,17 @@ class Solution {
     public int solution(int i, int j, int k) {
         int cnt = 0;
         
+        StringBuilder sb = new StringBuilder();
+        
         while(i <= j){
-            for(char c : String.valueOf(i).toCharArray()){
-                if(k == c-48) cnt++;
-            }
-            i++;
+            sb.append(i++);
         }
+        char t = (char)(k + 48);
+        
+        for(char c : sb.toString().toCharArray()){
+            if(t == c) cnt++;
+        }
+        
         return cnt;
     }
 }
