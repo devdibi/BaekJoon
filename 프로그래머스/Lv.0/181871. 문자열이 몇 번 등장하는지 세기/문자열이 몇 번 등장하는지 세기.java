@@ -6,7 +6,7 @@ class Solution {
         int cnt = 0;
         int len = pat.length();
         for(int i = 0; i < myString.length() - len + 1; i++){
-            if(myString.substring(i,i+len).equals(pat)) cnt++;
+            if(myString.substring(i).startsWith(pat)) cnt++;
         }
         return cnt;
     }
