@@ -37,6 +37,6 @@ class Solution {
             if(k <= 0) return result;
         }
         
-        return 0;   
+        return list.size();
     }
 }
