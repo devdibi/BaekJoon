@@ -1,9 +1,18 @@
+/*
+    조건
+        progresses의 index 순으로 배포를 한다.(뒤에서 완료가 되어도 앞에서 완료가 되지 않으면 배포 불가능)
+    
+    풀이 과정
+        남은 진도를 기준으로 개발이 완료되는 시간을 구한다.
+        순서대로 배포 가능 여부를 확인하고 뒤 순서의 개발이 앞 개발의 완료 기간보다 작을 경우 함께 배포가 가능하다.
+*/
+
 import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
+        
         int len = progresses.length;
-        // progresses는 작업의 개발 속도가 적히고 순서대로 배포되어야 한다.
         int[] dates = new int[len];
         
         for(int i = 0; i < len; i++){
