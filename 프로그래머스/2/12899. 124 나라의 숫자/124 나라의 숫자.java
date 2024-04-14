@@ -1,39 +1,20 @@
+import java.util.*;
+
 class Solution {
     public String solution(int n) {
-        char[] temp = Integer.toString(n,3).toCharArray();
+        char[] nums = {'4','1','2'};
         
-        for(int i = temp.length - 1; i > 0; i--){
-            if(temp[i] == '0'){
-                temp[i] = '4';
-                if(temp[i-1] == '2'){
-                    temp[i-1] = '1';
-                }
-                else if(temp[i-1] == '1'){
-                    temp[i-1] = '0';
-                }
-                else{
-                    temp[i-1] = '*';
-                }
-            }
-            else if(temp[i] == '*'){
-                temp[i] = '2';
-                if(temp[i-1] == '2'){
-                    temp[i-1] = '1';
-                }
-                else if(temp[i-1] == '1'){
-                    temp[i-1] = '0';
-                }
-                else{
-                    temp[i-1] = '*';
-                }
-            }
-        }
+        Stack<Character> stack = new Stack<>();
+        
         StringBuilder sb = new StringBuilder();
         
-        if(temp[0] != '0') sb.append(temp[0]);
+        while(n > 0){
+            stack.push(nums[n % 3]);
+            n = (n - 1) / 3;
+        }
         
-        for(int i = 1; i < temp.length; i++){
-            sb.append(temp[i]);
+        while(!stack.isEmpty()){
+            sb.append(stack.pop());
         }
         
         return sb.toString();
