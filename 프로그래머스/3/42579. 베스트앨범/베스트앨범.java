@@ -1,59 +1,41 @@
 import java.util.*;
+import java.util.stream.*;
 
 class Solution {
-    public static class Play {
-        int idx;
-        int count;
-        
-        public Play(int idx, int count) {
-            this.idx = idx;
-            this.count = count;
-        }
-    }
-    
-    public static class Genre {
-        String name;
-        Queue<Play> playList = new PriorityQueue<>((p1, p2) -> {
-            if(p1.count != p2.count) {
-                return p2.count - p1.count;  
-            }
-            return p1.idx - p2.idx;          
-        });
-        int total;  
-        
-        public Genre(String name) {
-            this.name = name;
-            this.total = 0;
-        }
-    }
-    
     public int[] solution(String[] genres, int[] plays) {
-        Map<String, Genre> genreMap = new HashMap<>();
+    class Song {
+        int id;
+        int play;
+        String genre;
         
-        for(int i = 0; i < genres.length; i++) {
-            String genreName = genres[i];
-            int play = plays[i];
-            
-            Genre genre = genreMap.getOrDefault(genreName, new Genre(genreName));
-            genre.playList.add(new Play(i, play));
-            genre.total += play;
-            
-            genreMap.put(genreName, genre);
+        Song(int id, int play, String genre) {
+            this.id = id;
+            this.play = play;
+            this.genre = genre;
         }
-        
-        List<Genre> genreList = new ArrayList<>(genreMap.values());
-        genreList.sort((g1, g2) -> g2.total - g1.total);
-        
-        List<Integer> answer = new ArrayList<>();
-        
-        for(Genre genre : genreList) {
-            int count = 0;
-            while(!genre.playList.isEmpty() && count < 2) {
-                answer.add(genre.playList.poll().idx);
-                count++;
-            }
-        }
-        
-        return answer.stream().mapToInt(Integer::intValue).toArray();
     }
+    
+    List<Song> songs = IntStream.range(0, genres.length)
+        .mapToObj(i -> new Song(i, plays[i], genres[i]))
+        .collect(Collectors.toList());
+    
+    Map<String, Integer> genrePlayCount = songs.stream()
+        .collect(Collectors.groupingBy(s -> s.genre, 
+                 Collectors.summingInt(s -> s.play)));
+    
+    return songs.stream()
+        .collect(Collectors.groupingBy(s -> s.genre))
+        .entrySet().stream()
+        .sorted((e1, e2) -> genrePlayCount.get(e2.getKey()) - genrePlayCount.get(e1.getKey()))
+        .flatMap(e -> e.getValue().stream()
+            .sorted((s1, s2) -> {
+                if (s1.play != s2.play) {
+                    return s2.play - s1.play;
+                }
+                return s1.id - s2.id;
+            })
+            .limit(2))
+        .mapToInt(s -> s.id)
+        .toArray();
+    }   
 }
